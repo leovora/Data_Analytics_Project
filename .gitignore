@@ -4,6 +4,10 @@ __pycache__/
 *$py.class
 
 .DS_Store
+settings.json
+*.pkl
+*_raw.csv
+*_processed.csv
 
 # C extensions
 *.so
