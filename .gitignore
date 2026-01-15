@@ -6,8 +6,8 @@ __pycache__/
 .DS_Store
 settings.json
 *.pkl
-*_raw.csv
-*_processed.csv
+*.csv
+*.save
 
 # C extensions
 *.so
