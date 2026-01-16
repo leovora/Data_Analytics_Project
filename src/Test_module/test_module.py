@@ -1,6 +1,3 @@
-from sklearn.preprocessing import MinMaxScaler
-from sklearn.linear_model import LogisticRegression
-from sklearn.svm import SVC
 from sklearn.metrics import f1_score
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import balanced_accuracy_score
@@ -8,7 +5,10 @@ import pickle
 import pandas as pd
 import numpy as np
 import os
-from utils import load_ff_model, internal_preprocess_logic, FeedForward, FeedForwardWrapper
+from utils import load_ff_model, internal_preprocess_logic
+from pytorch_tabnet.tab_model import TabNetClassifier
+from pytorch_tabular import TabularModel
+import torch
 
 matricola_leonardo = "0001186597"
 matricola_carlotta = "0001181860"
@@ -24,7 +24,7 @@ def getName():
 def preprocess(dataset, clfName):
     
     # Logica per determinare l'encoding
-    use_label_only = True if clfName in ['tb', 'tf'] else False
+    use_label_only = True if clfName in ['tf'] else False
     
     X = dataset['data']
     y = dataset['target'] 
@@ -63,12 +63,13 @@ def load(clfName):
         clf = load_ff_model("src/Test_module/models/ff.save")
     
     elif (clfName == "tb"):
-        #TODO
-        clf = None
+        tb_model = TabNetClassifier()
+        tb_model.load_model("src/Test_module/models/tabnet.zip")
+        clf = tb_model
     
     elif (clfName == "tf"):
-        #TODO
-        clf = None
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        clf = TabularModel.load_model("src/Test_module/models/tabtransformer_cpuu", map_location=device)
 
     return clf
 
@@ -78,12 +79,17 @@ def load(clfName):
 def predict(dataset, clf):
     X = dataset['data']
     y = dataset['target']
-    
-    ypred = clf.predict(X)
 
-    acc = accuracy_score(y, ypred)
-    bacc = balanced_accuracy_score(y, ypred)
-    f1 = f1_score(y, ypred, average="weighted")
+    if isinstance(clf, TabularModel):
+        pred_df = clf.predict(X)
+        y_pred = pred_df["grade_prediction"]
+    else:
+        X_array = X.values if isinstance(X, pd.DataFrame) else X
+        y_pred = clf.predict(X_array)
+
+    acc = accuracy_score(y, y_pred)
+    bacc = balanced_accuracy_score(y, y_pred)
+    f1 = f1_score(y, y_pred, average="weighted")
     
     perf = {"acc": acc, "bacc": bacc, "f1": f1}
     
@@ -131,12 +137,32 @@ if __name__ == "__main__":
     # print("svm")
     # print(f"Performance: {perf}")
 
-     # ---- TEST FF ----
-    print("----------------- FF -----------------")
-    dataset_processed = preprocess(dataset, 'ff')
-    clf = load('ff')
-    perf = predict(dataset_processed, clf)
+    # # ---- TEST FF ----
+    # print("----------------- FF -----------------")
+    # dataset_processed = preprocess(dataset, 'ff')
+    # clf = load('ff')
+    # perf = predict(dataset_processed, clf)
 
-    print(f"Team ID: {name}")
-    print("ff")
-    print(f"Performance: {perf}")
+    # print(f"Team ID: {name}")
+    # print("ff")
+    # print(f"Performance: {perf}")
+
+    # # ---- TEST TB ----
+    # print("----------------- TB -----------------")
+    # dataset_processed = preprocess(dataset, 'tb')
+    # clf = load('tb')
+    # perf = predict(dataset_processed, clf)
+
+    # print(f"Team ID: {name}")
+    # print("tb")
+    # print(f"Performance: {perf}")
+
+    # # ---- TEST TF ----
+    # print("----------------- TF -----------------")
+    # dataset_processed = preprocess(dataset, 'tf')
+    # clf = load('tf')
+    # perf = predict(dataset_processed, clf)
+
+    # print(f"Team ID: {name}")
+    # print("tf")
+    # print(f"Performance: {perf}")

@@ -12,4 +12,5 @@ tqdm
 pytorch-tabnet
 tab-transformer-pytorch
 # You can also use this module:
-# pytorch_tabular
+pytorch_tabular
+imblearn
