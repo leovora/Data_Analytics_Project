@@ -30,7 +30,7 @@ def preprocess(dataset, clfName):
     y = dataset['target'] 
     
     # Caricamento asset
-    asset_file = "src/Test_module/preprocessing_assets_only_label.pkl" if use_label_only else "src/Test_module/preprocessing_assets.pkl"
+    asset_file = "src/Test_module/models/preprocessing_assets_only_label.pkl" if use_label_only else "src/Test_module/models/preprocessing_assets.pkl"
     
     # Preprocess di X
     X_processed = internal_preprocess_logic(X, assets_path=asset_file, use_label_only=use_label_only)
@@ -69,7 +69,7 @@ def load(clfName):
     
     elif (clfName == "tf"):
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        clf = TabularModel.load_model("src/Test_module/models/tabtransformer_cpuu", map_location=device)
+        clf = TabularModel.load_model("src/Test_module/models/tabtransformer", map_location=device)
 
     return clf
 
