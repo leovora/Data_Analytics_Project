@@ -3,10 +3,10 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics import balanced_accuracy_score
 import pickle
 import pandas as pd
-import numpy as np
 import os
 from utils import load_ff_model, internal_preprocess_logic
 from pytorch_tabnet.tab_model import TabNetClassifier
+import numpy as np
 from pytorch_tabular import TabularModel
 import torch
 
@@ -107,62 +107,62 @@ if __name__ == "__main__":
 
     name = getName()
 
-    # # ---- TEST KNN ----
-    # print("----------------- KNN -----------------")
-    # dataset_processed = preprocess(dataset, 'knn')
-    # clf = load('knn')
-    # perf = predict(dataset_processed, clf)
+    # ---- TEST KNN ----
+    print("----------------- KNN -----------------")
+    dataset_processed = preprocess(dataset, 'knn')
+    clf = load('knn')
+    perf = predict(dataset_processed, clf)
 
-    # print(f"Team ID: {name}")
-    # print("knn")
-    # print(f"Performance: {perf}")
+    print(f"Team ID: {name}")
+    print("knn")
+    print(f"Performance: {perf}")
 
-    # # ---- TEST RF ----
-    # print("----------------- RF -----------------")
-    # dataset_processed = preprocess(dataset, 'rf')
-    # clf = load('rf')
-    # perf = predict(dataset_processed, clf)
+    # ---- TEST RF ----
+    print("----------------- RF -----------------")
+    dataset_processed = preprocess(dataset, 'rf')
+    clf = load('rf')
+    perf = predict(dataset_processed, clf)
 
-    # print(f"Team ID: {name}")
-    # print("rf")
-    # print(f"Performance: {perf}")
+    print(f"Team ID: {name}")
+    print("rf")
+    print(f"Performance: {perf}")
 
-    # # ---- TEST SVM ----
-    # print("----------------- SVM -----------------")
-    # dataset_processed = preprocess(dataset, 'svm')
-    # clf = load('svm')
-    # perf = predict(dataset_processed, clf)
+    # ---- TEST SVM ----
+    print("----------------- SVM -----------------")
+    dataset_processed = preprocess(dataset, 'svm')
+    clf = load('svm')
+    perf = predict(dataset_processed, clf)
 
-    # print(f"Team ID: {name}")
-    # print("svm")
-    # print(f"Performance: {perf}")
+    print(f"Team ID: {name}")
+    print("svm")
+    print(f"Performance: {perf}")
 
-    # # ---- TEST FF ----
-    # print("----------------- FF -----------------")
-    # dataset_processed = preprocess(dataset, 'ff')
-    # clf = load('ff')
-    # perf = predict(dataset_processed, clf)
+    # ---- TEST FF ----
+    print("----------------- FF -----------------")
+    dataset_processed = preprocess(dataset, 'ff')
+    clf = load('ff')
+    perf = predict(dataset_processed, clf)
 
-    # print(f"Team ID: {name}")
-    # print("ff")
-    # print(f"Performance: {perf}")
+    print(f"Team ID: {name}")
+    print("ff")
+    print(f"Performance: {perf}")
 
-    # # ---- TEST TB ----
-    # print("----------------- TB -----------------")
-    # dataset_processed = preprocess(dataset, 'tb')
-    # clf = load('tb')
-    # perf = predict(dataset_processed, clf)
+    # ---- TEST TB ----
+    print("----------------- TB -----------------")
+    dataset_processed = preprocess(dataset, 'tb')
+    clf = load('tb')
+    perf = predict(dataset_processed, clf)
 
-    # print(f"Team ID: {name}")
-    # print("tb")
-    # print(f"Performance: {perf}")
+    print(f"Team ID: {name}")
+    print("tb")
+    print(f"Performance: {perf}")
 
-    # # ---- TEST TF ----
-    # print("----------------- TF -----------------")
-    # dataset_processed = preprocess(dataset, 'tf')
-    # clf = load('tf')
-    # perf = predict(dataset_processed, clf)
+    # ---- TEST TF ----
+    print("----------------- TF -----------------")
+    dataset_processed = preprocess(dataset, 'tf')
+    clf = load('tf')
+    perf = predict(dataset_processed, clf)
 
-    # print(f"Team ID: {name}")
-    # print("tf")
-    # print(f"Performance: {perf}")
+    print(f"Team ID: {name}")
+    print("tf")
+    print(f"Performance: {perf}")
