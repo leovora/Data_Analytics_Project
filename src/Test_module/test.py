@@ -7,6 +7,7 @@ import os
 from utils import load_ff_model, internal_preprocess_logic
 from pytorch_tabnet.tab_model import TabNetClassifier
 import numpy as np
+import numpy._core.numeric
 from pytorch_tabular import TabularModel
 import torch
 
