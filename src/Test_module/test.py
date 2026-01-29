@@ -24,17 +24,14 @@ def getName():
 # Output: PreProcessed Dataset dictionary
 def preprocess(dataset, clfName):
     
-    # Logica per determinare l'encoding
-    use_label_only = True if clfName in ['tf'] else False
-    
     X = dataset['data']
     y = dataset['target'] 
     
     # Caricamento asset
-    asset_file = "src/Test_module/models/preprocessing_assets_only_label.pkl" if use_label_only else "src/Test_module/models/preprocessing_assets.pkl"
+    asset_file = "src/Test_module/models/preprocessing_assets.pkl"
     
     # Preprocess di X
-    X_processed = internal_preprocess_logic(X, assets_path=asset_file, use_label_only=use_label_only)
+    X_processed = internal_preprocess_logic(X, assets_path=asset_file)
     
     # Map di y
     with open(asset_file, "rb") as f:
