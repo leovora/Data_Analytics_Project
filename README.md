@@ -1,31 +1,115 @@
-# Data Analytics 2024/2025 — Loan Risk Prediction
-This project focuses on predicting the **credit risk grade** of a loan using the dataset provided in `train.csv`. This file can be used for both training and validation.
+# Loan risk prediction — Data Analytics 2025/2026
+
+![Python](https://img.shields.io/badge/Python-3.9%2B-blue?logo=python&logoColor=white)
+![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-orange?logo=jupyter&logoColor=white)
+![Scikit-learn](https://img.shields.io/badge/Scikit--learn-ML-F7931E?logo=scikit-learn&logoColor=white)
+![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?logo=pytorch&logoColor=white)
+
+> **University Project** — Data Analytics Course, A.Y. 2025/2026  
+> Alma Mater Studiorum — Università di Bologna  
+> Authors: Leonardo Vorabbi, Carlotta Nunziati
+
+---
+
+## Overview
+
+This project tackles a **credit risk classification** problem: predicting the **risk grade** of a loan application based on borrower and loan characteristics.
+
+The full machine learning pipeline is implemented — from raw data ingestion and preprocessing, through feature engineering and model selection, to final evaluation. The project explores both classical ML approaches and deep tabular models.
+
+---
 
 ## Objective
-Build a model that predicts the loan’s **risk grade**, provided in the column **`grade`**.
+
+> **Predict the `grade` column** — the risk grade assigned to a loan — using the features provided in `train.csv`.
+
+The `grade` variable is a multi-class label representing the creditworthiness of a loan, ranging from low-risk to high-risk categories.
+
+---
+
+## Repository structure
+
+```
+Data_Analytics_Project/
+│
+├── data/
+│   └── Dataset2526/          # Raw dataset (train.csv)
+│
+├── docs/                     # Documentation and project reports
+│
+├── src/                      # Source code and notebooks
+│
+├── .gitignore
+├── requirements.txt
+└── README.md
+```
+
+---
 
 ## Dataset
-The dataset contains approximately **150 raw features**, including:
 
-- **Numerical features:** loan amount, interest rate, income levels, and other financial indicators.
-- **Categorical features:** employment category, loan purpose, housing status.
-- **Date features:** timestamps related to the loan or borrower.
+The dataset (`train.csv`) contains approximately **150 raw features** per loan application:
 
-When preprocessing the data, ensure that categorical encodings properly handle:
-- **High-cardinality features**
-- **Missing values**
+| Feature Type | Examples |
+|---|---|
+| **Numerical** | Loan amount, interest rate, income levels, financial indicators, ... |
+| **Categorical** | Employment category, loan purpose, housing status, ... |
+| **Date/Time** | Timestamps related to loan issuance or borrower history |
 
-## Reproducibility
-All models will be evaluated using the provided test environment. 
-* **If the code does not run within this environment, the project will not be evaluated**.
+---
 
-If you have access to a GPU, you must install CUDA libraries for accelerated training.
+## Getting started
 
-For Deep Tabular Models (TabNet, TabTransformer) you can use the following libraries:
-- `pytorch-tabnet`
-- `tab-transformer-pytorch`
-- `pytorch_tabular` (not included by default)
+### Prerequisites
 
-## Contacts
-- filippo.bartolucci3@unibo.it
-- leonardo.ciabattini@unibo.it
+Python **3.9+** and `pip` are required. GPU support (CUDA) is recommended for training deep tabular models.
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/leovora/Data_Analytics_Project.git
+cd Data_Analytics_Project
+```
+
+### 2. Create a virtual environment
+
+```bash
+python -m venv venv
+source venv/bin/activate        # macOS/Linux
+venv\Scripts\activate           # Windows
+```
+
+### 3. Install dependencies
+
+⚠️ `test.py` requires **NumPy >= 2.0.0**, but `pytorch-tabular` pins **NumPy == 1.26.4**, causing a dependency conflict. To resolve it, run the following commands **in order** after installing the requirements:
+
+```bash
+pip install -r requirements.txt
+pip uninstall numpy -y
+pip install numpy==2.0.0
+```
+
+## Models & approach
+
+The project experiments with a range of models suitable for tabular data:
+
+- **Baseline models** - KNN, SVM
+- **Ensemble methods** - Random Forest
+- **NN model** - Feed Forward
+- **Deep Tabular models** - TabNet, TabTransformer
+- **Evaluation metric** - Multi-class classification (accuracy, F1-score, etc.)
+
+---
+
+## Tech stack
+
+| Tool | Purpose |
+|------|---------|
+| **Python 3.9+** | Core programming language |
+| **Jupyter Notebook** | Interactive analysis and experimentation |
+| **Pandas / NumPy** | Data manipulation and numerical computing |
+| **Scikit-learn** | Classical ML models and preprocessing |
+| **Matplotlib / Seaborn** | Data visualization |
+| **pytorch-tabnet** | Deep tabular model (TabNet) |
+| **tab-transformer-pytorch** | Transformer-based tabular model |
+| **pytorch_tabular** | Feed Forward NN |
