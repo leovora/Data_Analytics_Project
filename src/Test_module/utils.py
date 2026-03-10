@@ -119,7 +119,7 @@ class FeedForwardWrapper:
             preds = outputs.argmax(dim=1).cpu().numpy()
         return preds
 
-def load_ff_model(model_path="models/ff.save", device=None):
+def load_ff_model(model_path="ff.save", device=None):
     device = device or torch.device("cuda" if torch.cuda.is_available() else "cpu")
     checkpoint = torch.load(model_path, map_location=device, weights_only=False)
     

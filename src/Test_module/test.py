@@ -28,7 +28,7 @@ def preprocess(dataset, clfName):
     y = dataset['target'] 
     
     # Caricamento asset
-    asset_file = "src/Test_module/models/preprocessing_assets.pkl"
+    asset_file = "preprocessing_assets.pkl"
     
     # Preprocess di X
     X_processed = internal_preprocess_logic(X, assets_path=asset_file)
@@ -49,25 +49,25 @@ def load(clfName):
     clf = None
     
     if (clfName == "knn"):
-        clf = pickle.load(open("src/Test_module/models/knn_pipeline.save", 'rb'))
+        clf = pickle.load(open("knn_pipeline.save", 'rb'))
         
     elif (clfName == "svm"):
-        clf = pickle.load(open("src/Test_module/models/svm_pipeline.save", 'rb'))
+        clf = pickle.load(open("svm_pipeline.save", 'rb'))
 
     elif (clfName == "rf"):
-        clf = pickle.load(open("src/Test_module/models/rf_pipeline.save", 'rb'))
+        clf = pickle.load(open("rf_pipeline.save", 'rb'))
 
     elif (clfName == "ff"):
-        clf = load_ff_model("src/Test_module/models/ff.save")
+        clf = load_ff_model("ff.save")
     
     elif (clfName == "tb"):
         tb_model = TabNetClassifier()
-        tb_model.load_model("src/Test_module/models/tabnet.zip")
+        tb_model.load_model("tabnet.zip")
         clf = tb_model
     
     elif (clfName == "tf"):
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        clf = TabularModel.load_model("src/Test_module/models/tabtransformer", map_location=device)
+        clf = TabularModel.load_model("tabtransformer", map_location="cpu")
 
     return clf
 
@@ -93,74 +93,74 @@ def predict(dataset, clf):
     
     return perf
     
-# TEST NOSTRO
-if __name__ == "__main__":
+# # TEST NOSTRO
+# if __name__ == "__main__":
     
-    df = pd.read_csv("data/test_raw.csv")
+#     df = pd.read_csv("test_raw.csv")
     
-    dataset = {
-        'data': df.drop(columns=['grade']), 
-        'target': df['grade']
-    }
+#     dataset = {
+#         'data': df.drop(columns=['grade']), 
+#         'target': df['grade']
+#     }
 
-    name = getName()
+#     name = getName()
 
-    # ---- TEST KNN ----
-    print("----------------- KNN -----------------")
-    dataset_processed = preprocess(dataset, 'knn')
-    clf = load('knn')
-    perf = predict(dataset_processed, clf)
+#     # ---- TEST KNN ----
+#     print("----------------- KNN -----------------")
+#     dataset_processed = preprocess(dataset, 'knn')
+#     clf = load('knn')
+#     perf = predict(dataset_processed, clf)
 
-    print(f"Team ID: {name}")
-    print("knn")
-    print(f"Performance: {perf}")
+#     print(f"Team ID: {name}")
+#     print("knn")
+#     print(f"Performance: {perf}")
 
-    # ---- TEST RF ----
-    print("----------------- RF -----------------")
-    dataset_processed = preprocess(dataset, 'rf')
-    clf = load('rf')
-    perf = predict(dataset_processed, clf)
+#     # ---- TEST RF ----
+#     print("----------------- RF -----------------")
+#     dataset_processed = preprocess(dataset, 'rf')
+#     clf = load('rf')
+#     perf = predict(dataset_processed, clf)
 
-    print(f"Team ID: {name}")
-    print("rf")
-    print(f"Performance: {perf}")
+#     print(f"Team ID: {name}")
+#     print("rf")
+#     print(f"Performance: {perf}")
 
-    # ---- TEST SVM ----
-    print("----------------- SVM -----------------")
-    dataset_processed = preprocess(dataset, 'svm')
-    clf = load('svm')
-    perf = predict(dataset_processed, clf)
+#     # ---- TEST SVM ----
+#     print("----------------- SVM -----------------")
+#     dataset_processed = preprocess(dataset, 'svm')
+#     clf = load('svm')
+#     perf = predict(dataset_processed, clf)
 
-    print(f"Team ID: {name}")
-    print("svm")
-    print(f"Performance: {perf}")
+#     print(f"Team ID: {name}")
+#     print("svm")
+#     print(f"Performance: {perf}")
 
-    # ---- TEST FF ----
-    print("----------------- FF -----------------")
-    dataset_processed = preprocess(dataset, 'ff')
-    clf = load('ff')
-    perf = predict(dataset_processed, clf)
+#     # ---- TEST FF ----
+#     print("----------------- FF -----------------")
+#     dataset_processed = preprocess(dataset, 'ff')
+#     clf = load('ff')
+#     perf = predict(dataset_processed, clf)
 
-    print(f"Team ID: {name}")
-    print("ff")
-    print(f"Performance: {perf}")
+#     print(f"Team ID: {name}")
+#     print("ff")
+#     print(f"Performance: {perf}")
 
-    # ---- TEST TB ----
-    print("----------------- TB -----------------")
-    dataset_processed = preprocess(dataset, 'tb')
-    clf = load('tb')
-    perf = predict(dataset_processed, clf)
+#     # ---- TEST TB ----
+#     print("----------------- TB -----------------")
+#     dataset_processed = preprocess(dataset, 'tb')
+#     clf = load('tb')
+#     perf = predict(dataset_processed, clf)
 
-    print(f"Team ID: {name}")
-    print("tb")
-    print(f"Performance: {perf}")
+#     print(f"Team ID: {name}")
+#     print("tb")
+#     print(f"Performance: {perf}")
 
-    # ---- TEST TF ----
-    print("----------------- TF -----------------")
-    dataset_processed = preprocess(dataset, 'tf')
-    clf = load('tf')
-    perf = predict(dataset_processed, clf)
+#     # ---- TEST TF ----
+#     print("----------------- TF -----------------")
+#     dataset_processed = preprocess(dataset, 'tf')
+#     clf = load('tf')
+#     perf = predict(dataset_processed, clf)
 
-    print(f"Team ID: {name}")
-    print("tf")
-    print(f"Performance: {perf}")
+#     print(f"Team ID: {name}")
+#     print("tf")
+#     print(f"Performance: {perf}")
