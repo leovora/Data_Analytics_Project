@@ -31,17 +31,13 @@ The `grade` variable is a multi-class label representing the creditworthiness of
 
 ```
 Data_Analytics_Project/
-│
-├── data/
-│   └── Dataset2526/          # Raw dataset (train.csv)
-│
-├── docs/                     # Documentation and project reports
-│
-├── src/                      # Source code and notebooks
-│
-├── .gitignore
-├── requirements.txt
-└── README.md
+
+    data/
+        Dataset2526/          # Raw dataset (train.csv)
+
+    docs/                     # Documentation and project reports
+
+    src/                      # Source code and notebooks
 ```
 
 ---
